@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+pytest = "*"
+autopep8 = "*"
+
+[packages]
+pdf2image = "*"
+pdftotext = "*"
+
+[requires]
+python_version = "3.8"
