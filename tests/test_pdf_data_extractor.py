@@ -14,7 +14,11 @@ LECTURE1 = os.path.join(TEST_LECTURE_SLIDES_DIRECTORY, "MIT6_0001F16_Lec1.pdf")
     (LECTURE1, [0], "\n", 20, 13, [
         'ASPECTS OF LANGUAGES', 'WHERE THINGS GO WRONG']),
     (LECTURE1, [0], "\n", 20, 14, [
-        'ASPECTS OF LANGUAGES'])
+        'ASPECTS OF LANGUAGES']),
+    (LECTURE1, [0,1], "\n", 20, 14, [
+        'ASPECTS OF LANGUAGES\n\uf0a7 semantics is the meaning associated with a']),
+    (LECTURE1, [0,2], "\n", 20, 14, [
+        'ASPECTS OF LANGUAGES\n syntactically correct string of symbols with no static'])
 ])
 def test_get_page_titles(pdf_filename, line_numbers, line_seperator, skip_first, skip_last, expected_result):
     pdf = PDFDataExtractor(pdf_filename, skip_first = skip_first, skip_last = skip_last)
