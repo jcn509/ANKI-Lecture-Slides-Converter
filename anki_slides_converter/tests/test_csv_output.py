@@ -1,5 +1,5 @@
 import pytest
-from ..lib import output_cards_to_csv_file
+from ..utils import output_cards_to_csv_file
 
 
 @pytest.mark.parametrize(
