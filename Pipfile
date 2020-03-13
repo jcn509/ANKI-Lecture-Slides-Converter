@@ -8,10 +8,13 @@ pylint = "*"
 pytest = "*"
 autopep8 = "*"
 pytest-mock = "*"
+pipenv-setup = "*"
+flake8 = "*"
+black = "*"
 
 [packages]
 pdf2image = "*"
 pdftotext = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
