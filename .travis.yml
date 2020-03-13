@@ -5,12 +5,12 @@ python:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install -y poppler-utils
+  - sudo apt-get install -y libpoppler-cpp-dev
 
 install:
   - pip install pipenv
   - pipenv install --dev
 
 script:
-  - pipenv run pytype -V $TRAVIS_PYTHON_VERSION
-  - pipenv run pytest
+  - pytype -V $TRAVIS_PYTHON_VERSION
+  - pytest
