@@ -10,7 +10,6 @@ autopep8 = "*"
 pytest-mock = "*"
 pipenv-setup = "*"
 flake8 = "*"
-black = "*"
 
 [packages]
 pdf2image = "*"
