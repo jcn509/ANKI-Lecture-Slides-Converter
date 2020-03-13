@@ -1,5 +1,5 @@
 import pytest
-from ..anki_slides_converter import output_cards_to_csv_file
+from ..lib import output_cards_to_csv_file
 
 
 @pytest.mark.parametrize(

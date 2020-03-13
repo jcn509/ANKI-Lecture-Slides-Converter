@@ -1,6 +1,6 @@
 import pytest
 import os
-from ..anki_slides_converter import PDFDataExtractor
+from ..lib import PDFDataExtractor
 
 TEST_LECTURE_SLIDES_DIRECTORY = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "test_slides"

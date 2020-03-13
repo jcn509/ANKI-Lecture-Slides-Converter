@@ -1,5 +1,5 @@
 import csv
-from .anki_slides_converter import PDFDataExtractor, output_cards_to_csv_file
+from .lib import PDFDataExtractor, output_cards_to_csv_file
 
 if __name__ == "__main__":
     import sys
