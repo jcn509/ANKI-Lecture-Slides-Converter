@@ -11,6 +11,7 @@ pytest-mock = "*"
 pipenv-setup = "*"
 flake8 = "*"
 v = {editable = true,version = "*"}
+pytype = "*"
 
 [packages]
 pdf2image = "*"
