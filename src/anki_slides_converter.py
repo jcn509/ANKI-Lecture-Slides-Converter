@@ -4,7 +4,7 @@ import os
 from glob import glob
 import csv
 import argparse
-from . import PDFToAnkiCardsConverter
+from anki_slides_converter import PDFToAnkiCardsConverter
 from typing import List
 
 def parse_arguments(args: List[str] = None) -> argparse.Namespace:
@@ -31,7 +31,7 @@ def get_pdf_file_paths(pdfs_and_directories):
             pdf_file_paths += glob(file_or_dir + "*.pdf") 
     return pdf_file_paths
 
-if __name__ == "__main__":
+def main():
     args = parse_arguments()
     print(args)
     csv_open_mode = "w"
@@ -47,3 +47,6 @@ if __name__ == "__main__":
             if not args.practice_run:    
                 pdf.output_cards_to_csv_file(csv_file)
                 pdf.output_images_to_directory(args.output_image_directory)
+
+if __name__ == "__main__":
+    main()
