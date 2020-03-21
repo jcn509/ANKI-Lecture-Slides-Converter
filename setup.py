@@ -104,6 +104,9 @@ setup(
     #
     # Note that this is a string of words separated by whitespace, not a list.
     keywords="ANKI lecture slides convert pdf",  # Optional
+
+    # `src/`, it is necessary to specify the `package_dir` argument.
+    package_dir={'': 'src'},  # Optional
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
     #
@@ -113,7 +116,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=["contrib", "docs", "tests"]),  # Required
+    packages=find_packages(exclude=["contrib", "docs", "tests"], where='src'),  # Required
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
     # and refuse to install the project if the version does not match. If you

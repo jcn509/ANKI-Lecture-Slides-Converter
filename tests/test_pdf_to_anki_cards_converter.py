@@ -8,7 +8,7 @@ TEST_LECTURE_SLIDES_DIRECTORY = os.path.join(
 LECTURE1 = os.path.join(TEST_LECTURE_SLIDES_DIRECTORY, "MIT6_0001F16_Lec1.pdf")
 
 @pytest.mark.parametrize(
-    "pdf_filename,line_numbers,line_seperator,skip_first,skip_last,expected_result",
+    "pdf_filename,get_title_from_lines,line_seperator,skip_first,skip_last,expected_result",
     [
         (
             LECTURE1,
@@ -108,10 +108,10 @@ LECTURE1 = os.path.join(TEST_LECTURE_SLIDES_DIRECTORY, "MIT6_0001F16_Lec1.pdf")
     ],
 )
 def test_get_page_titles(
-    pdf_filename, line_numbers, line_seperator, skip_first, skip_last, expected_result
+    pdf_filename, get_title_from_lines, line_seperator, skip_first, skip_last, expected_result
 ):
-    pdf = PDFToAnkiCardsConverter(pdf_filename, skip_first=skip_first, skip_last=skip_last)
-    result = pdf.get_page_titles(line_numbers, line_seperator)
+    pdf = PDFToAnkiCardsConverter(pdf_filename, skip_first=skip_first, skip_last=skip_last, get_title_from_lines=get_title_from_lines, title_line_seperator=line_seperator)
+    result = pdf.get_page_titles()
     assert result == expected_result
 
 @pytest.mark.parametrize(
