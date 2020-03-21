@@ -2,7 +2,7 @@
 See:
 https://packaging.python.org/guides/distributing-packages-using-setuptools/
 https://github.com/pypa/sampleproject
-Modified by Madoshakalaka@Github (dependency links added)
+Modified by jcn509@Github (dependency links added)
 """
 
 # Always prefer setuptools over distutils
@@ -36,7 +36,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name="sampleproject",  # Required
+    name="ANKI Lecture Slide Converter",  # Required
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
     #
@@ -47,7 +47,7 @@ setup(
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description="A sample Python project",  # Optional
+    description="",  # Optional
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
     #
@@ -72,13 +72,13 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url="https://github.com/pypa/sampleproject",  # Optional
+    url="https://github.com/jcn509/ANKI-Lecture-Slides-Converter",  # Optional
     # This should be your name or the name of the organization which owns the
     # project.
-    author="The Python Packaging Authority",  # Optional
+    author="Josh Neil",  # Optional
     # This should be a valid email address corresponding to the author listed
     # above.
-    author_email="pypa-dev@googlegroups.com",  # Optional
+    #author_email="",  # Optional
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see https://pypi.org/classifiers/
@@ -97,18 +97,13 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         # These classifiers are *not* checked by 'pip install'. See instead
         # 'python_requires' below.
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
     ],
     # This field adds keywords for your project which will appear on the
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords="sample setuptools development",  # Optional
+    keywords="ANKI lecture slides convert pdf",  # Optional
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
     #
@@ -124,7 +119,7 @@ setup(
     # and refuse to install the project if the version does not match. If you
     # do not support Python 2, you can simplify this to '>=3.5' or similar, see
     # https://packaging.python.org/guides/distributing-packages-using-setuptools/#python-requires
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4",
+    python_requires=">=3.6",
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
     # installed, so they must be valid existing projects.
@@ -172,7 +167,7 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    # entry_points={"console_scripts": ["sample=sample:main"]},  # Optional
+    entry_points={"console_scripts": ["anki_slides_converter=anki_slides_converter:main"]},  # Optional
     # List additional URLs that are relevant to your project as a dict.
     #
     # This field corresponds to the "Project-URL" metadata fields:
@@ -183,9 +178,7 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        "Bug Reports": "https://github.com/pypa/sampleproject/issues",
-        "Funding": "https://donate.pypi.org",
-        "Say Thanks!": "http://saythanks.io/to/example",
-        "Source": "https://github.com/pypa/sampleproject/",
+        "Bug Reports": "https://github.com/jcn509/ANKI-Lecture-Slides-Converter/issues",
+        "Source": "https://github.com/jcn509/ANKI-Lecture-Slides-Converter",
     },
 )
