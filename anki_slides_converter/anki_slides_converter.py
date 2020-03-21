@@ -2,12 +2,13 @@
 
 import csv
 import argparse
-from .utils import PDFDataExtractor, output_cards_to_csv_file
+from . import PDFToAnkiCardsConverter
 from typing import List
 
-def parse_arguments(args: List[str] = None) -> Namespace:
+def parse_arguments(args: List[str] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description = "Convert lecture slides to ANKI flascards")
     parser.add_argument('PDFs', type=str, nargs='+', help='PDF files or directories containing PDFs')
+    parser.add_argument('output_file', type=str, help='Path to the output file')
 
     parser.add_argument("--skip-first", "-f", type=int, default = 0, help = "Skip the first n slides in each PDF")
     parser.add_argument("--skip-last", "-l", type=int, default = 0, help = "Skip the last n slides in each PDF")
@@ -16,9 +17,9 @@ def parse_arguments(args: List[str] = None) -> Namespace:
     return parser.parse_args(args)
 
 if __name__ == "__main__":
-    parse_arguments()
-    with open(sys.argv[2], "w") as file:
+    args = parse_arguments()
+    with open(args.output_file, "w") as file:
         csv_file = csv.writer(file)
-        pdf_filename = sys.argv[1]
-        pdf = PDFDataExtractor(pdf_filename)
+        pdf_filename = args.PDFs[0]
+        pdf = PDFToAnkiCardsConverter(pdf_filename)
         pdf.output_cards_to_csv_file(csv_file)
