@@ -12,5 +12,6 @@ install:
   - pipenv install --dev
 
 script:
+  - pipenv-setup check
   - pytype -V $TRAVIS_PYTHON_VERSION
   - pytest
