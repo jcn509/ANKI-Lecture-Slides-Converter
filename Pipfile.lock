@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5b0ee0230e91a0fc1f91334e51d746a759fafa26d0f0f59921deab264b15f0a3"
+            "sha256": "7b3d6655dcf16f4c3c12fb4ae45752bd457480ca12929283fc4ea80238b36902"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,9 +16,6 @@
         ]
     },
     "default": {
-        "anki-lecture-slide-converter": {
-            "path": "."
-        },
         "pdf2image": {
             "hashes": [
                 "sha256:a0d9906f5507192210a8d5d7ead63145e9dec4bccc4564b1fb644e923913c31c"

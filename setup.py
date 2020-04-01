@@ -172,7 +172,9 @@ setup(
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
     entry_points={
-        "console_scripts": ["anki_slides_converter=anki_slides_converter.command_line:main"]
+        "console_scripts": [
+            "anki_slides_converter=anki_slides_converter.command_line:main"
+        ]
     },  # Optional
     # List additional URLs that are relevant to your project as a dict.
     #

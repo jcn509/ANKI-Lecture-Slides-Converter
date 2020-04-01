@@ -16,7 +16,6 @@ pytype = "*"
 [packages]
 pdf2image = "*"
 pdftotext = "*"
-anki-lecture-slide-converter = {path = "."}
 
 [requires]
 python_version = "3.7"
