@@ -12,6 +12,7 @@ pipenv-setup = "*"
 flake8 = "*"
 v = {editable = true,version = "*"}
 pytype = "*"
+anki-lecture-slide-converter = {editable = true,path = "."}
 
 [packages]
 pdf2image = "*"
