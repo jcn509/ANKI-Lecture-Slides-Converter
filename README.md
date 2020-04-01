@@ -1,5 +1,4 @@
-# ANKI lecture slides converter
-[![Build Status](https://travis-ci.com/jcn509/ANKI-Lecture-Slides-Converter.svg?branch=master)](https://travis-ci.com/jcn509/ANKI-Lecture-Slides-Converter)
+# ANKI lecture slides converter [![Build Status](https://travis-ci.com/jcn509/ANKI-Lecture-Slides-Converter.svg?branch=master)](https://travis-ci.com/jcn509/ANKI-Lecture-Slides-Converter)
 A script that automatically converts lecture slides into ANKI flash cards. This script can extract the slide titles from lecture slides and use these as the "fronts" (title/questions) for the flash cards. It can also group together consecutive slides that that have the same title in to one card. 
 
 ## Advantages over [anki-slides-import](https://github.com/musically-ut/anki-slides-import)
