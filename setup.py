@@ -78,7 +78,7 @@ setup(
     author="Josh Neil",  # Optional
     # This should be a valid email address corresponding to the author listed
     # above.
-    #author_email="",  # Optional
+    # author_email="",  # Optional
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see https://pypi.org/classifiers/
@@ -104,9 +104,8 @@ setup(
     #
     # Note that this is a string of words separated by whitespace, not a list.
     keywords="ANKI lecture slides convert pdf",  # Optional
-
     # `src/`, it is necessary to specify the `package_dir` argument.
-    package_dir={'': 'src'},  # Optional
+    package_dir={"": "src"},  # Optional
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
     #
@@ -116,7 +115,9 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=["contrib", "docs", "tests"], where='src'),  # Required
+    packages=find_packages(
+        exclude=["contrib", "docs", "tests"], where="src"
+    ),  # Required
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
     # and refuse to install the project if the version does not match. If you
@@ -132,7 +133,7 @@ setup(
     install_requires=[
         "pdf2image==1.12.1",
         "pdftotext==2.1.4",
-        "pillow==7.0.0",
+        "pillow==7.1.0",
     ],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -170,7 +171,9 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    entry_points={"console_scripts": ["anki_slides_converter=src:anki_slides_converter:main"]},  # Optional
+    entry_points={
+        "console_scripts": ["anki_slides_converter=anki_slides_converter.command_line:main"]
+    },  # Optional
     # List additional URLs that are relevant to your project as a dict.
     #
     # This field corresponds to the "Project-URL" metadata fields:
