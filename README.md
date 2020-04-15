@@ -14,10 +14,7 @@ Example lecture slides used in the tests were take from:
 
 ## TO DO:
  - Automatic keyword extraction for the tags (to make it easier to search for cards)
- - Proper command line argument parsing
  - Either convert this script to an ANKI plugin or create a GUI
  - Documentation
- - Command line arguments
  - Allow slide cropping
- - Allow converting all PDFs in a directory
-
+ - Automated end to end testing
