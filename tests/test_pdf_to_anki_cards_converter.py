@@ -7,6 +7,7 @@ TEST_LECTURE_SLIDES_DIRECTORY = os.path.join(
 )
 LECTURE1 = os.path.join(TEST_LECTURE_SLIDES_DIRECTORY, "MIT6_0001F16_Lec1.pdf")
 
+
 @pytest.mark.parametrize(
     "pdf_filename,get_title_from_lines,line_seperator,skip_first,skip_last,expected_result",
     [
@@ -108,82 +109,109 @@ LECTURE1 = os.path.join(TEST_LECTURE_SLIDES_DIRECTORY, "MIT6_0001F16_Lec1.pdf")
     ],
 )
 def test_get_page_titles(
-    pdf_filename, get_title_from_lines, line_seperator, skip_first, skip_last, expected_result
+    pdf_filename,
+    get_title_from_lines,
+    line_seperator,
+    skip_first,
+    skip_last,
+    expected_result,
 ):
-    pdf = PDFToAnkiCardsConverter(pdf_filename, skip_first=skip_first, skip_last=skip_last, get_title_from_lines=get_title_from_lines, title_line_seperator=line_seperator)
+    pdf = PDFToAnkiCardsConverter(
+        pdf_filename,
+        skip_first=skip_first,
+        skip_last=skip_last,
+        get_title_from_lines=get_title_from_lines,
+        title_line_seperator=line_seperator,
+    )
     result = pdf.get_page_titles()
     assert result == expected_result
+
 
 # Don't care about should_merge_consecutive_cards_with_same_title
 _parameters_for_output_cards_to_csv_file = [
     pytest.param(
-        ["img1.jpg"], 
-        ["test"], 
+        ["img1.jpg"],
+        ["test"],
         [("test", "<img src='img1.jpg'>")],
-        id="one image one title -> one card"
+        id="one image one title -> one card",
     ),
     pytest.param(
-        ["blah.jpg", "test.jpg"], 
+        ["blah.jpg", "test.jpg"],
         ["title1", "title2"],
-        [
-            ("title1", "<img src='blah.jpg'>"),
-            ("title2", "<img src='test.jpg'>")
-        ],
-        id="Different titles -> different cards"
+        [("title1", "<img src='blah.jpg'>"), ("title2", "<img src='test.jpg'>")],
+        id="Different titles -> different cards",
     ),
     pytest.param(
-        ["blah.jpg", "test.jpg", "test2.jpg", "test3.jpg"], 
+        ["blah.jpg", "test.jpg", "test2.jpg", "test3.jpg"],
         ["title1", "title2", "title3", "title2"],
         [
             ("title1", "<img src='blah.jpg'>"),
             ("title2", "<img src='test.jpg'>"),
             ("title3", "<img src='test2.jpg'>"),
-            ("title2", "<img src='test3.jpg'>")
+            ("title2", "<img src='test3.jpg'>"),
         ],
-        id="Same title appears twice but not consecutively -> different cards"
-    )
-]
-
-parameters_for_output_cards_to_csv_file_merge_consecutive_cards_with_same_title = _parameters_for_output_cards_to_csv_file + [
-    pytest.param(
-        ["blah.jpg", "test.jpg", "test2.jpg"], 
-        ["title1", "title2", "title2"],
-        [
-            ("title1", "<img src='blah.jpg'>"),
-            ("title2", "<img src='test.jpg'><img src='test2.jpg'>")
-        ],
-        id="Same title twice in a row -> both images on one card"
+        id="Same title appears twice but not consecutively -> different cards",
     ),
-    pytest.param(
-        ["blah.jpg", "test.jpg", "test2.jpg", "x.jpg", "y.jpg"], 
-        ["title1", "title2", "title2", "title2", "last"],
-        [
-            ("title1", "<img src='blah.jpg'>"),
-            ("title2", "<img src='test.jpg'><img src='test2.jpg'><img src='x.jpg'>"),
-            ("last", "<img src='y.jpg'>")
-        ],
-        id="Same title three times in a row -> all three images on one card"
-    )
-
 ]
 
+parameters_for_output_cards_to_csv_file_merge_consecutive_cards_with_same_title = (
+    _parameters_for_output_cards_to_csv_file
+    + [
+        pytest.param(
+            ["blah.jpg", "test.jpg", "test2.jpg"],
+            ["title1", "title2", "title2"],
+            [
+                ("title1", "<img src='blah.jpg'>"),
+                ("title2", "<img src='test.jpg'><img src='test2.jpg'>"),
+            ],
+            id="Same title twice in a row -> both images on one card",
+        ),
+        pytest.param(
+            ["blah.jpg", "test.jpg", "test2.jpg", "x.jpg", "y.jpg"],
+            ["title1", "title2", "title2", "title2", "last"],
+            [
+                ("title1", "<img src='blah.jpg'>"),
+                (
+                    "title2",
+                    "<img src='test.jpg'><img src='test2.jpg'><img src='x.jpg'>",
+                ),
+                ("last", "<img src='y.jpg'>"),
+            ],
+            id="Same title three times in a row -> all three images on one card",
+        ),
+    ]
+)
 
-parameters_for_output_cards_to_csv_file_dont_merge_consecutive_cards_with_same_title = _parameters_for_output_cards_to_csv_file + [
-    pytest.param(
-        ["blah.jpg", "test.jpg", "test2.jpg"], 
-        ["title1", "title2", "title2"],
-        [
-            ("title1", "<img src='blah.jpg'>"),
-            ("title2", "<img src='test.jpg'>"),
-            ("title2", "<img src='test2.jpg'>")
-        ],
-        id="Same title twice in a row -> two separate cards"
-    )
-]
 
-def _test_output_cards_csv_file(mocker, merge_consecutive_cards_with_same_title, image_filenames, page_titles, expected_result):
+parameters_for_output_cards_to_csv_file_dont_merge_consecutive_cards_with_same_title = (
+    _parameters_for_output_cards_to_csv_file
+    + [
+        pytest.param(
+            ["blah.jpg", "test.jpg", "test2.jpg"],
+            ["title1", "title2", "title2"],
+            [
+                ("title1", "<img src='blah.jpg'>"),
+                ("title2", "<img src='test.jpg'>"),
+                ("title2", "<img src='test2.jpg'>"),
+            ],
+            id="Same title twice in a row -> two separate cards",
+        )
+    ]
+)
+
+
+def _test_output_cards_csv_file(
+    mocker,
+    merge_consecutive_cards_with_same_title,
+    image_filenames,
+    page_titles,
+    expected_result,
+):
     """Just a helper function"""
-    pdf = PDFToAnkiCardsConverter("", merge_consecutive_cards_with_same_title = merge_consecutive_cards_with_same_title)
+    pdf = PDFToAnkiCardsConverter(
+        "",
+        merge_consecutive_cards_with_same_title=merge_consecutive_cards_with_same_title,
+    )
     pdf.get_page_titles = mocker.MagicMock(return_value=page_titles)
     pdf.get_image_filename = mocker.MagicMock(side_effect=image_filenames)
     pdf.convert_pdf_to_images = mocker.MagicMock()
@@ -197,15 +225,23 @@ def _test_output_cards_csv_file(mocker, merge_consecutive_cards_with_same_title,
 
 @pytest.mark.parametrize(
     "image_filenames,page_titles,expected_result",
-    parameters_for_output_cards_to_csv_file_merge_consecutive_cards_with_same_title
+    parameters_for_output_cards_to_csv_file_merge_consecutive_cards_with_same_title,
 )
-def test_output_cards_to_csv_merge_consecutive_cards_with_same_title(mocker, image_filenames, page_titles, expected_result):
-    _test_output_cards_csv_file(mocker, True, image_filenames, page_titles, expected_result)
+def test_output_cards_to_csv_merge_consecutive_cards_with_same_title(
+    mocker, image_filenames, page_titles, expected_result
+):
+    _test_output_cards_csv_file(
+        mocker, True, image_filenames, page_titles, expected_result
+    )
+
 
 @pytest.mark.parametrize(
     "image_filenames,page_titles,expected_result",
-    parameters_for_output_cards_to_csv_file_dont_merge_consecutive_cards_with_same_title
+    parameters_for_output_cards_to_csv_file_dont_merge_consecutive_cards_with_same_title,
 )
-def test_output_cards_to_csv_dont_merge_consecutive_cards_with_same_title(mocker, image_filenames, page_titles, expected_result):
-    _test_output_cards_csv_file(mocker, False, image_filenames, page_titles, expected_result)
-
+def test_output_cards_to_csv_dont_merge_consecutive_cards_with_same_title(
+    mocker, image_filenames, page_titles, expected_result
+):
+    _test_output_cards_csv_file(
+        mocker, False, image_filenames, page_titles, expected_result
+    )
