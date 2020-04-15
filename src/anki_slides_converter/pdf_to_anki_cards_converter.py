@@ -12,10 +12,11 @@ def _get_image_tag(image_filename: str) -> str:
     return "<img src='" + image_filename + "'>"
 
 class PDFToAnkiCardsConverter:
-    def __init__(self, pdf_file_path: str, skip_first: int = 0, skip_last: int = 0, password: str = "", get_title_from_lines: Tuple[int] = (0,), title_line_seperator: str = "\n"):
+    def __init__(self, pdf_file_path: str, skip_first: int = 0, skip_last: int = 0, merge_consecutive_cards_with_same_title: bool = True, password: str = "", get_title_from_lines: Tuple[int] = (0,), title_line_seperator: str = "\n"):
         self._pdf_file_path = pdf_file_path
         self._skip_first = skip_first
         self._skip_last = skip_last
+        self._merge_consecutive_cards_with_same_title = merge_consecutive_cards_with_same_title
         self._password = password
         self._get_title_from_lines = get_title_from_lines
         self._title_line_seperator = title_line_seperator
@@ -39,21 +40,11 @@ class PDFToAnkiCardsConverter:
                 os.path.join(output_directory, self.get_image_filename(image_number))
             )
 
-    def output_cards_to_csv_file(self, csv_file) -> None:
-        titles = self.get_page_titles()
-        previous_title = titles[0]
-        current_image_xml = ""
-        num_titles = len(titles)
-        for title_number, title in enumerate(titles):
-
-            image_filename = self.get_image_filename(title_number)
-            if title != previous_title or title_number == num_titles:
-                csv_file.writerow((previous_title, current_image_xml))
-                current_image_xml = ""
-            current_image_xml += _get_image_tag(image_filename)
-            previous_title = title
-        csv_file.writerow((previous_title, current_image_xml))
-
+    def _get_title_for_page(self, pdf_page: str) -> str:
+        lines_of_page = pdf_page.split("\n")
+        lines_for_title = (lines_of_page[line].strip() for line in self._get_title_from_lines)
+        return self._title_line_seperator.join(lines_for_title)
+ 
     def get_page_titles(self) -> List[str]:
         if self._titles is None:
             self._titles = []
@@ -62,9 +53,28 @@ class PDFToAnkiCardsConverter:
 
                 # Slicing not supported here
                 for page in range(self._skip_first, len(pdf) - self._skip_last):
-                    lines = pdf[page].split("\n")
-                    self._titles.append(
-                        self._title_line_seperator.join((lines[line] for line in self._get_title_from_lines)).strip()
-                    )
+                    title = self._get_title_for_page(pdf[page])
+                    self._titles.append(title)
 
         return self._titles
+
+    def _should_merge_cards(self, card_title_1:str, card_title_2: str) -> bool:
+        return self._merge_consecutive_cards_with_same_title and card_title_1 == card_title_2
+
+    def output_cards_to_csv_file(self, csv_file) -> None:
+        titles = self.get_page_titles()
+        previous_title = titles[0]
+        current_image_xml = ""
+        num_titles = len(titles)
+        for title_number, title in enumerate(titles):
+
+            image_filename = self.get_image_filename(title_number)
+            is_last_card = title_number == num_titles
+            if is_last_card or not self._should_merge_cards(title, previous_title):
+                # Note: writing previous card here
+                csv_file.writerow((previous_title, current_image_xml))
+                current_image_xml = ""
+            current_image_xml += _get_image_tag(image_filename)
+            previous_title = title
+        csv_file.writerow((title, current_image_xml))
+

@@ -19,6 +19,7 @@ def parse_arguments(args: List[str] = None) -> argparse.Namespace:
     parser.add_argument("--title-lines", "-t", type = int, nargs="+", help="after converting a PDF to text which lines should you take to use as the title", default=(0,)) 
     parser.add_argument("--password", "-w", type =str, default = "", help = "The PDF password")
     parser.add_argument("--keep-csv-contents", "-e", default = False, action='store_true', help = "If the CSV file already exists append to it rather than overwrite it")
+    parser.add_argument("--dont-merge-consecutive-cards-with-same-title", "-d", default = False, action='store_true', help = "If 2 or more consecutive cards have the same title don't merge them")
 
     return parser.parse_args(args)
 
@@ -40,7 +41,7 @@ def main():
     with open(args.output_csv_file, csv_open_mode) as file: 
         csv_file = csv.writer(file)
         for pdf_file_path in get_pdf_file_paths(args.PDFs):
-            pdf = PDFToAnkiCardsConverter(pdf_file_path, skip_first = args.skip_first, skip_last = args.skip_last, password = args.password, get_title_from_lines = args.title_lines)
+            pdf = PDFToAnkiCardsConverter(pdf_file_path, skip_first = args.skip_first, merge_consecutive_cards_with_same_title = not args.dont_merge_consecutive_cards_with_same_title, skip_last = args.skip_last, password = args.password, get_title_from_lines = args.title_lines)
             if args.verbose or args.practice_run:
                 print("File: " + pdf_file_path)
                 print("\n\n".join(pdf.get_page_titles()))
