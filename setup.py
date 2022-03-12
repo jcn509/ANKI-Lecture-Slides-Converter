@@ -133,7 +133,7 @@ setup(
     install_requires=[
         "pdf2image==1.12.1",
         "pdftotext==2.1.4",
-        "pillow==7.1.0",
+        "pillow==9.0.1",
     ],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
